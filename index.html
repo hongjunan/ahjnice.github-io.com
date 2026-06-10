@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>성리학과 양명학 비교 슬라이드</title>
+  <style>
+    :root{
+      --paper:#fffdf6;
+      --paper2:#f8f1df;
+      --ink:#151515;
+      --muted:#6d6557;
+      --line:#282828;
+      --neo:#2b6cb0;
+      --yang:#d97706;
+      --li:#f4b000;
+      --mind:#f97316;
+      --good:#2f855a;
+      --bad:#b91c1c;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:26px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:#e9e3d8;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Apple SD Gothic Neo,Malgun Gothic,sans-serif;}
+    body{overflow:hidden}
+    .deck{height:100dvh;width:100vw;display:grid;place-items:center;padding:22px 22px 82px;position:relative;background:
+      radial-gradient(circle at 10% 10%, rgba(255,255,255,.8), transparent 24%),
+      linear-gradient(135deg,#e7ded0,#f5efe6 55%,#ddd3c2);}
+    .slide{display:none;width:min(1280px,95vw);aspect-ratio:16/9;background:var(--paper);border:2px solid rgba(25,25,25,.85);border-radius:var(--radius);box-shadow:var(--shadow);padding:42px 48px;position:relative;overflow:hidden;}
+    .slide.active{display:block;animation:fade .18s ease-out}
+    @keyframes fade{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .paper-grain{position:absolute;inset:0;pointer-events:none;opacity:.32;background-image:radial-gradient(rgba(0,0,0,.08) 1px, transparent 1px);background-size:12px 12px;mix-blend-mode:multiply}
+    .kicker{font-size:18px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
+    h1,h2,h3,p{margin:0}
+    h1{font-size:58px;line-height:1.05;letter-spacing:-.05em;margin-bottom:18px;}
+    h2{font-size:43px;line-height:1.13;letter-spacing:-.04em;margin-bottom:18px;}
+    h3{font-size:26px;letter-spacing:-.02em;margin-bottom:8px;}
+    p,.body{font-size:24px;line-height:1.58;letter-spacing:-.035em;}
+    .small{font-size:18px;line-height:1.5;color:var(--muted)}
+    .tiny{font-size:14px;color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1.06fr .94fr;gap:38px;height:100%;align-items:center;position:relative;z-index:1}
+    .grid2.equal{grid-template-columns:1fr 1fr}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:1}
+    .center{display:grid;place-items:center;text-align:center;height:100%;position:relative;z-index:1}
+    .card{background:rgba(255,255,255,.62);border:2px solid var(--line);border-radius:20px;padding:22px;box-shadow:5px 6px 0 rgba(0,0,0,.08)}
+    .tag{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:6px 13px;background:#fff;font-weight:800;font-size:17px;margin:4px 5px 4px 0}
+    .tag.li{background:#fff8d9;border-color:#be8a00;color:#8a6100}.tag.mind{background:#fff0e1;border-color:#d97706;color:#9a4a00}.tag.neo{background:#e9f2ff;border-color:#2b6cb0;color:#174b82}.tag.yang{background:#fff7ed;border-color:#f97316;color:#9a3412}
+    .quote{border-left:7px solid var(--li);padding:14px 0 14px 20px;background:rgba(244,176,0,.08);font-size:26px;line-height:1.5;font-weight:800;letter-spacing:-.04em;margin-top:22px;border-radius:0 18px 18px 0}
+    .note{position:absolute;right:34px;bottom:28px;font-size:16px;color:var(--muted);z-index:2}
+    .controls{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;padding:9px 12px;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);border:1.5px solid rgba(0,0,0,.2);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:10}
+    button{border:1.5px solid rgba(0,0,0,.35);background:#fff;border-radius:999px;padding:10px 15px;font-weight:800;cursor:pointer;color:var(--ink)}
+    button:hover{background:#fff7dd}.counter{font-weight:900;min-width:72px;text-align:center}.bar{position:fixed;left:0;bottom:0;height:6px;background:var(--li);width:0%;z-index:11;transition:.2s}
+    .dots{display:flex;gap:6px}.dot{width:9px;height:9px;border-radius:50%;background:#b7aa94}.dot.on{background:var(--ink)}
+    .two-col-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}.pillbox{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .compare{width:100%;border-collapse:separate;border-spacing:0 12px;font-size:20px;line-height:1.42;position:relative;z-index:1}.compare th{font-size:22px;text-align:left;padding:12px 16px}.compare td{background:rgba(255,255,255,.75);padding:16px;border-top:2px solid #222;border-bottom:2px solid #222}.compare td:first-child{border-left:2px solid #222;border-radius:16px 0 0 16px;font-weight:900;width:18%}.compare td:nth-child(2){border-left:2px dashed rgba(0,0,0,.2)}.compare td:last-child{border-right:2px solid #222;border-radius:0 16px 16px 0;border-left:2px dashed rgba(0,0,0,.2)}
+    .big-q{font-size:48px;line-height:1.18;font-weight:900;letter-spacing:-.055em}.highlight{background:linear-gradient(transparent 62%, rgba(244,176,0,.45) 62%)}.orange{color:var(--mind)}.blue{color:var(--neo)}
+    svg.viz{width:100%;height:auto;max-height:560px;display:block}.rough{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:2}.thick{stroke-width:4}.li-stroke{stroke:var(--li)}.mind-stroke{stroke:var(--mind)}.neo-stroke{stroke:var(--neo)}.good-stroke{stroke:var(--good)}.muted-stroke{stroke:#6b6b6b}.fill-paper{fill:#fffdf6}.fill-li{fill:#fff1a7}.fill-mind{fill:#ffedd5}.fill-blue{fill:#dbeafe}.fill-green{fill:#dcfce7}.fill-pink{fill:#ffe4e6}.fill-white{fill:#fff}.svg-label{font:800 22px system-ui,-apple-system,"Noto Sans KR",sans-serif;fill:#181818;letter-spacing:-.04em}.svg-small{font:700 16px system-ui,-apple-system,"Noto Sans KR",sans-serif;fill:#181818;letter-spacing:-.04em}.svg-tiny{font:700 13px system-ui,-apple-system,"Noto Sans KR",sans-serif;fill:#6d6557}.arrow{marker-end:url(#arrow)}.arrow-li{marker-end:url(#arrowLi)}.arrow-mind{marker-end:url(#arrowMind)}
+    .cheolli .ray{stroke:var(--li);stroke-width:3;stroke-linecap:round}.cheolli .geo{stroke:var(--li);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.cheolli .sun{fill:#fff8cf;stroke:var(--li);stroke-width:3}
+    .slide-number{position:absolute;left:28px;top:22px;width:44px;height:44px;border:2px solid #222;border-radius:50%;display:grid;place-items:center;background:#fff;font-weight:900;z-index:2}
+    .topline{position:absolute;left:90px;top:32px;right:48px;height:1.5px;background:rgba(0,0,0,.13)}
+    .legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px;font-weight:800}.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:16px;height:16px;border:2px solid #222;border-radius:50%;display:inline-block}.swatch.li{background:#fff0a8}.swatch.mind{background:#ffedd5}.swatch.neo{background:#dbeafe}
+    .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:22px}.flow .step{min-height:106px;text-align:center}.flow .arr{font-size:38px;font-weight:900;color:var(--muted)}
+    @media (max-width:900px){.deck{padding:8px 8px 72px}.slide{width:98vw;padding:30px 24px}.grid2,.grid2.equal{grid-template-columns:1fr;gap:12px}.viz{max-height:330px}h1{font-size:38px}h2{font-size:31px}.body,p{font-size:19px}.compare{font-size:15px}.compare th{font-size:16px}.big-q{font-size:32px}.flow{grid-template-columns:1fr}.flow .arr{display:none}.slide{overflow:auto}}
+    @media print{body{overflow:auto;background:white}.deck{display:block;height:auto;padding:0;background:white}.slide{display:block!important;page-break-after:always;width:100%;box-shadow:none;border-radius:0;border:0;aspect-ratio:auto;min-height:100vh}.controls,.bar{display:none}}
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <section class="slide active" data-title="표지">
+      <div class="paper-grain"></div><div class="slide-number">1</div><div class="topline"></div>
+      <div class="grid2">
+        <div>
+          <div class="kicker">동양윤리 · 성리학에서 양명학으로</div>
+          <h1>천리는<br><span class="highlight">마음 밖</span>에 있는가,<br><span class="highlight">마음 안</span>에 있는가?</h1>
+          <p class="body">주희의 성리학을 배운 뒤, 이제 왕수인의 문제의식으로 넘어가기 위한 비교 슬라이드입니다.</p>
+          <div class="pillbox">
+            <span class="tag neo">성즉리</span><span class="tag neo">격물치지</span><span class="tag neo">선지후행</span>
+            <span class="tag yang">심즉리</span><span class="tag yang">치양지</span><span class="tag yang">지행합일</span>
+          </div>
+        </div>
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="성리학과 양명학으로 넘어가는 도입 그림">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#151515"/></marker>
+            <marker id="arrowLi" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f4b000"/></marker>
+            <marker id="arrowMind" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f97316"/></marker>
+          </defs>
+          <g transform="translate(90 34)" class="cheolli">
+            <circle class="sun" cx="92" cy="92" r="42"/><path class="geo" d="M92 8 L152 92 L92 176 L32 92 Z M28 54 H156 V130 H28 Z M52 28 H132 V156 H52 Z"/>
+            <path class="ray" d="M92 192 v45 M92 -12 v-30 M-5 92 h-35 M188 92 h38 M24 24 l-26-26 M160 24 l26-26 M24 160 l-26 26 M160 160 l26 26"/>
+            <text x="92" y="100" text-anchor="middle" class="svg-label">天理</text>
+          </g>
+          <g transform="translate(36 288)">
+            <path class="rough" d="M0 145 C60 80 120 110 170 52 C210 5 250 34 286 8"/>
+            <path class="rough thin good-stroke" d="M40 125 C90 92 130 104 168 70 M158 72 C168 50 178 36 198 24"/>
+            <path class="rough thin neo-stroke" d="M68 150 C130 128 152 96 200 82"/>
+            <text x="16" y="180" class="svg-small">세계와 사물의 이치</text>
+          </g>
+          <g transform="translate(365 188)">
+            <path class="rough" d="M95 70 c38 0 62 28 62 66 c0 60-62 92-62 92 s-62-32-62-92 c0-38 24-66 62-66z"/>
+            <path class="rough mind-stroke thick" d="M95 118 C54 75 8 130 38 175 C58 205 86 203 95 230 C104 203 132 205 152 175 C182 130 136 75 95 118z"/>
+            <text x="95" y="155" text-anchor="middle" class="svg-label">心</text>
+            <path class="rough arrow-li li-stroke" d="M-120 -45 C-60 0 18 38 72 92"/>
+            <path class="rough arrow-mind mind-stroke" d="M95 238 C98 284 162 313 226 326"/>
+            <text x="190" y="332" class="svg-small">현실 속 실천</text>
+          </g>
+        </svg>
+      </div>
+      <div class="note">← / → 키로 이동 · F 키 전체화면</div>
+    </section>
+
+    <section class="slide" data-title="학습 지도">
+      <div class="paper-grain"></div><div class="slide-number">2</div><div class="topline"></div>
+      <div class="center">
+        <div style="max-width:1040px">
+          <div class="kicker">오늘의 큰 흐름</div>
+          <h2>같은 질문, 다른 출발점</h2>
+          <div class="flow">
+            <div class="card step"><h3>성리학 확인</h3><p class="small">세계와 사물 속 객관적 천리</p></div>
+            <div class="arr">→</div>
+            <div class="card step"><h3>왕수인의 의문</h3><p class="small">천리를 꼭 마음 밖에서 먼저 찾아야 할까?</p></div>
+            <div class="arr">→</div>
+            <div class="card step"><h3>양명학의 전환</h3><p class="small">도덕 원리는 내 마음 안에서 드러나는가?</p></div>
+          </div>
+          <p class="quote">핵심 질문: <span class="orange">“도덕의 기준은 마음 밖에 있는가, 아니면 이미 내 마음 안에서 드러나는가?”</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="성리학 세계관">
+      <div class="paper-grain"></div><div class="slide-number">3</div><div class="topline"></div>
+      <div class="grid2">
+        <div>
+          <div class="kicker">1. 성리학의 세계관</div>
+          <h2>세계에는 객관적 질서인<br><span class="highlight">천리</span>가 있다</h2>
+          <p>성리학은 하늘과 땅, 자연과 인간 사회가 하나의 보편적 이치, 곧 <b>천리</b>의 질서 안에 있다고 본다.</p>
+          <p class="small" style="margin-top:14px">여기서 천리는 인격신이 아니라, 세계와 인간관계를 바르게 하는 객관적 도덕 원리로 이해하면 됩니다.</p>
+        </div>
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="성리학의 세계관 SVG">
+          <defs><marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f4b000"/></marker></defs>
+          <g transform="translate(276 30)" class="cheolli">
+            <circle class="sun" cx="94" cy="94" r="42"/><path class="geo" d="M94 10 L164 94 L94 178 L24 94 Z M30 52 H158 V136 H30 Z M54 30 H134 V158 H54 Z"/>
+            <path class="ray" d="M94 190 v54 M94 0 v-34 M0 94 h-40 M188 94 h40 M28 28 l-30-30 M160 28 l30-30 M28 160 l-30 30 M160 160 l30 30"/>
+            <text x="94" y="102" text-anchor="middle" class="svg-label">天理</text>
+          </g>
+          <path class="rough li-stroke arrow-li" d="M372 230 C338 282 270 314 192 346"/>
+          <path class="rough li-stroke arrow-li" d="M372 230 C390 300 462 332 582 350"/>
+          <path class="rough li-stroke arrow-li" d="M372 230 C368 285 372 330 374 390"/>
+          <g transform="translate(52 330)">
+            <path class="rough good-stroke" d="M20 110 C70 48 114 82 156 28 C185 0 213 10 236 42"/>
+            <path class="rough neo-stroke thin" d="M55 126 C102 100 122 68 160 58"/>
+            <text x="28" y="158" class="svg-small">자연</text>
+          </g>
+          <g transform="translate(320 350)">
+            <circle class="rough fill-mind" cx="58" cy="58" r="48"/><path class="rough" d="M58 12 v92 M12 58 h92"/><text x="58" y="140" text-anchor="middle" class="svg-small">사물</text>
+          </g>
+          <g transform="translate(530 335)">
+            <circle class="rough fill-blue" cx="60" cy="60" r="52"/><path class="rough" d="M36 92 v-50 m0 0 c14-18 32-18 48 0 v50 M30 88 h60"/><text x="60" y="142" text-anchor="middle" class="svg-small">인간관계</text>
+          </g>
+          <g transform="translate(70 38)">
+            <path class="rough" d="M0 90 h160 M20 90 V42 M140 90 V42 M10 42 h140 M30 42 L80 10 L130 42"/><text x="80" y="130" text-anchor="middle" class="svg-small">예·제도</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="slide" data-title="마음 구조">
+      <div class="paper-grain"></div><div class="slide-number">4</div><div class="topline"></div>
+      <div class="grid2 equal">
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="성리학의 마음 구조 SVG">
+          <g transform="translate(264 20)" class="cheolli">
+            <circle class="sun" cx="94" cy="94" r="38"/><path class="geo" d="M94 14 L154 94 L94 174 L34 94 Z M36 56 H152 V132 H36 Z"/>
+            <path class="ray" d="M94 188 v44 M20 94 h-32 M168 94 h32 M38 38 l-24-24 M150 38 l24-24"/>
+            <text x="94" y="101" text-anchor="middle" class="svg-label">天理</text>
+          </g>
+          <path class="rough li-stroke arrow-li" d="M358 218 C350 260 342 300 334 338"/>
+          <g transform="translate(214 320)">
+            <path class="rough" d="M150 20 c64 0 106 42 106 102 c0 94-106 148-106 148S44 216 44 122C44 62 86 20 150 20z"/>
+            <path class="rough mind-stroke thick" d="M150 78 C98 24 44 96 76 154 C96 192 130 192 150 230 C170 192 204 192 224 154 C256 96 202 24 150 78z"/>
+            <text x="150" y="142" text-anchor="middle" class="svg-label">心</text>
+            <text x="88" y="118" class="svg-small">性</text><text x="196" y="196" class="svg-small">情</text>
+          </g>
+          <g transform="translate(20 270)">
+            <circle class="rough fill-white" cx="70" cy="70" r="52"/><path class="rough" d="M54 82 c22 8 44 0 52-25"/><path class="rough" d="M40 48 c12-15 48-16 62 0"/><text x="70" y="146" text-anchor="middle" class="svg-small">현실 상황</text>
+          </g>
+          <path class="rough arrow mind-stroke" d="M130 340 C182 344 208 368 258 398"/>
+        </svg>
+        <div>
+          <div class="kicker">2. 성리학의 마음 이해</div>
+          <h2>천리가 인간에게 내재한 것이<br><span class="highlight">본성</span>이다</h2>
+          <p>마음은 현실 상황을 만나 움직인다. 성리학은 그 움직임이 본래의 성, 곧 천리에 어긋나지 않도록 수양해야 한다고 본다.</p>
+          <div class="card" style="margin-top:20px">
+            <p><b>성리학의 목표</b><br>마음의 움직임을 외부의 객관적 천리에 비추어 바로잡고, 천리에 합치시킨 뒤 실천하는 것</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="격물치지">
+      <div class="paper-grain"></div><div class="slide-number">5</div><div class="topline"></div>
+      <div class="grid2">
+        <div>
+          <div class="kicker">3. 성리학의 수양</div>
+          <h2>격물치지:<br>천리에 마음을 맞추는 공부</h2>
+          <p>책과 사물, 예와 제도, 인간관계를 살펴 외부의 천리를 탐구하고, 그 이치를 마음에 비추어 마음의 움직임을 천리에 합치시킨 뒤 실천한다.</p>
+          <div class="flow" style="grid-template-columns:1fr;gap:10px">
+            <div class="card step"><h3>객관적 천리 확인</h3></div>
+            <div class="card step"><h3>마음의 움직임을 천리에 합치</h3></div>
+            <div class="card step"><h3>실천</h3></div>
+          </div>
+        </div>
+        <svg class="viz" viewBox="0 0 760 570" role="img" aria-label="격물치지의 구조 SVG">
+          <defs><marker id="arr5" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#151515"/></marker><marker id="arr5li" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f4b000"/></marker></defs>
+          <g transform="translate(268 10)" class="cheolli">
+            <circle class="sun" cx="94" cy="94" r="38"/><path class="geo" d="M94 14 L154 94 L94 174 L34 94 Z M36 56 H152 V132 H36 Z M58 38 H130 V150 H58 Z"/>
+            <path class="ray" d="M94 190 v54 M94 2 v-28 M8 94 h-32 M180 94 h32 M34 34 l-24-24 M154 34 l24-24"/>
+            <text x="94" y="101" text-anchor="middle" class="svg-label">天理</text>
+          </g>
+          <g transform="translate(70 170)">
+            <circle class="rough fill-blue" cx="70" cy="70" r="58"/><path class="rough" d="M40 42 h54 v62 H40z M94 42 c20 4 28 20 28 38s-8 30-28 24"/><text x="70" y="152" text-anchor="middle" class="svg-small">경전</text>
+          </g>
+          <g transform="translate(245 178)">
+            <circle class="rough fill-green" cx="70" cy="70" r="58"/><path class="rough good-stroke" d="M42 96 C66 52 88 78 100 44 M80 84 C110 72 114 98 128 104"/><text x="70" y="152" text-anchor="middle" class="svg-small">사물·자연</text>
+          </g>
+          <g transform="translate(420 178)">
+            <circle class="rough fill-mind" cx="70" cy="70" r="58"/><path class="rough" d="M48 82 h50 M60 82 v-40 h26 v40 M110 52 h18 v60"/><text x="70" y="152" text-anchor="middle" class="svg-small">예·제도</text>
+          </g>
+          <g transform="translate(595 178)">
+            <circle class="rough fill-pink" cx="70" cy="70" r="58"/><path class="rough" d="M48 104 V62 m0 0 c12-22 38-22 50 0 v42 M38 104 h72"/><text x="70" y="152" text-anchor="middle" class="svg-small">인간관계</text>
+          </g>
+          <path class="rough arrow-li li-stroke" d="M140 210 C188 128 260 100 350 112" marker-end="url(#arr5li)"/>
+          <path class="rough arrow-li li-stroke" d="M315 218 C332 158 350 130 362 110" marker-end="url(#arr5li)"/>
+          <path class="rough arrow-li li-stroke" d="M490 218 C452 154 410 124 374 110" marker-end="url(#arr5li)"/>
+          <path class="rough arrow-li li-stroke" d="M665 218 C548 128 438 105 374 110" marker-end="url(#arr5li)"/>
+          <g transform="translate(288 390)">
+            <path class="rough" d="M80 10 c74 0 112 45 112 102c0 78-112 132-112 132S-32 190-32 112C-32 55 6 10 80 10z"/>
+            <path class="rough mind-stroke thick" d="M80 70 C28 18 -20 88 12 138 C34 176 64 174 80 212 C96 174 126 176 148 138 C180 88 132 18 80 70z"/>
+            <text x="80" y="132" text-anchor="middle" class="svg-label">心</text>
+          </g>
+          <path class="rough arrow-li li-stroke" d="M362 192 C360 258 360 330 366 396" marker-end="url(#arr5li)"/>
+          <text x="474" y="444" class="svg-small">천리에 비추어 마음을 합치</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="slide" data-title="왕수인의 질문">
+      <div class="paper-grain"></div><div class="slide-number">6</div><div class="topline"></div>
+      <div class="grid2">
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="왕수인의 문제 제기 SVG">
+          <g transform="translate(40 80)">
+            <rect class="rough fill-white" x="16" y="190" width="260" height="110" rx="18"/><path class="rough" d="M55 246 h180 M70 220 h130 M82 270 h110"/><path class="rough" d="M40 188 v-44 m0 0 c20-24 55-24 76 0 v44"/>
+            <text x="146" y="332" text-anchor="middle" class="svg-small">계속되는 공부</text>
+          </g>
+          <g transform="translate(425 42)">
+            <ellipse class="rough fill-white" cx="140" cy="250" rx="92" ry="48"/><path class="rough" d="M82 250 c40-18 72-18 116 0"/><path class="rough" d="M88 228 h112 M88 272 h112"/>
+            <path class="rough" d="M116 210 c-18-50 52-64 30-6 M152 210 c-14-52 62-54 36-2"/>
+            <path class="rough" d="M120 246 c-8 34 4 56 22 60 M172 246 c4 36-10 56-32 60"/>
+            <text x="140" y="344" text-anchor="middle" class="svg-small">우물가의 아이</text>
+          </g>
+          <g transform="translate(230 120)">
+            <circle class="rough fill-blue" cx="80" cy="80" r="56"/><path class="rough" d="M52 82 c16 22 38 28 58 0 M58 54 h4 M100 54 h4"/><path class="rough" d="M38 134 c18 40 62 40 84 0"/><path class="rough" d="M32 148 h100"/>
+            <path class="rough" d="M118 184 h160 M128 184 v90 M260 184 v90"/>
+            <path class="rough" d="M142 208 h92 M142 238 h92"/>
+            <text x="145" y="322" text-anchor="middle" class="svg-small">먼저 더 알아야…</text>
+          </g>
+          <g transform="translate(142 26)" class="cheolli">
+            <circle class="sun" cx="94" cy="94" r="34"/><path class="geo" d="M94 18 L148 94 L94 170 L40 94 Z M38 60 H150 V128 H38 Z"/>
+            <path class="ray" d="M94 184 v36 M16 94 h-28 M172 94 h28"/>
+          </g>
+          <path class="rough li-stroke arrow-li" d="M238 206 C278 244 286 274 303 312"/>
+        </svg>
+        <div>
+          <div class="kicker">4. 왕수인의 문제 제기</div>
+          <h2>“천리를 마음 밖에서 찾는 동안,<br>눈앞의 실천은 늦어지지 않는가?”</h2>
+          <p>왕수인은 성리학이 외부의 천리를 먼저 확인하고 마음을 그 기준에 맞추려는 공부로 흐를 때, 실제 도덕적 실천이 뒤로 밀릴 수 있다고 보았다.</p>
+          <p class="quote">더 근본적인 질문:<br>도덕의 기준은 정말 마음 밖에만 있는가?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="심즉리">
+      <div class="paper-grain"></div><div class="slide-number">7</div><div class="topline"></div>
+      <div class="grid2 equal">
+        <div>
+          <div class="kicker">5. 양명학의 출발</div>
+          <h2>심즉리:<br><span class="orange">마음이 곧 이치</span>이다</h2>
+          <p>왕수인은 천리가 마음 밖의 사물 속에 따로 있는 것이 아니라, 사욕에 가려지지 않은 내 마음의 도덕적 자각 속에서 드러난다고 본다.</p>
+          <div class="card" style="margin-top:20px"><p><b>전환의 핵심</b><br>외부 천리에 마음을 맞추는 구조에서, 마음 안의 도덕 원리를 현실에 실현하는 구조로 이동한다.</p></div>
+        </div>
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="심즉리 SVG">
+          <defs><marker id="am7" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f97316"/></marker></defs>
+          <g transform="translate(244 70)">
+            <path class="rough" d="M140 20 c80 0 132 52 132 126c0 110-132 176-132 176S8 256 8 146C8 72 60 20 140 20z"/>
+            <path class="rough mind-stroke thick" d="M140 92 C82 32 26 114 62 176 C84 216 120 218 140 270 C160 218 196 216 218 176 C254 114 198 32 140 92z"/>
+            <text x="140" y="158" text-anchor="middle" class="svg-label">心</text><text x="140" y="224" text-anchor="middle" class="svg-small">理</text>
+          </g>
+          <g transform="translate(40 330)">
+            <circle class="rough fill-blue" cx="66" cy="66" r="54"/><text x="66" y="74" text-anchor="middle" class="svg-small">부모</text>
+          </g>
+          <g transform="translate(296 382)">
+            <circle class="rough fill-green" cx="66" cy="66" r="54"/><text x="66" y="74" text-anchor="middle" class="svg-small">친구</text>
+          </g>
+          <g transform="translate(560 330)">
+            <circle class="rough fill-mind" cx="66" cy="66" r="54"/><text x="66" y="74" text-anchor="middle" class="svg-small">이웃</text>
+          </g>
+          <path class="rough mind-stroke thick" marker-end="url(#am7)" d="M356 332 C280 350 210 370 120 390"/>
+          <path class="rough mind-stroke thick" marker-end="url(#am7)" d="M384 340 C376 366 372 386 364 426"/>
+          <path class="rough mind-stroke thick" marker-end="url(#am7)" d="M416 332 C488 348 548 370 612 390"/>
+          <text x="380" y="45" text-anchor="middle" class="svg-label">마음 안의 도덕 원리를 현실 속에 드러냄</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="slide" data-title="치양지">
+      <div class="paper-grain"></div><div class="slide-number">8</div><div class="topline"></div>
+      <div class="grid2">
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="치양지 SVG">
+          <g transform="translate(70 86)">
+            <rect class="rough fill-white" x="0" y="80" width="230" height="230" rx="30"/><text x="115" y="52" text-anchor="middle" class="svg-label">사욕</text>
+            <path class="rough muted-stroke thick" d="M64 148 c26-54 80-20 46 28 c52-26 86 34 18 62 c20 50-50 84-76 24 c-56 14-72-64-16-74"/>
+            <path class="rough" d="M30 334 C86 368 164 368 220 334"/><text x="115" y="382" text-anchor="middle" class="svg-small">가려진 마음</text>
+          </g>
+          <g transform="translate(470 86)">
+            <rect class="rough fill-mind" x="0" y="80" width="230" height="230" rx="30"/><text x="115" y="52" text-anchor="middle" class="svg-label">양지</text>
+            <path class="rough mind-stroke thick" d="M115 135 C75 88 28 152 58 204 C76 235 100 236 115 278 C130 236 154 235 172 204 C202 152 155 88 115 135z"/>
+            <path class="rough mind-stroke thin" d="M115 122 v-36 M115 294 v36 M56 204 h-40 M174 204 h40 M74 158 l-28-28 M156 158 l28-28"/>
+            <text x="115" y="382" text-anchor="middle" class="svg-small">밝혀진 마음</text>
+          </g>
+          <path class="rough arrow-mind mind-stroke thick" d="M315 220 C372 206 410 206 456 220"/>
+          <text x="380" y="190" text-anchor="middle" class="svg-label">걷어냄</text>
+        </svg>
+        <div>
+          <div class="kicker">6. 양명학의 수양</div>
+          <h2>치양지:<br>내 마음의 도덕 자각을 밝힘</h2>
+          <p>양지는 누구나 지닌 선천적 도덕 판단 능력이다. 왕수인에게 공부는 마음 밖의 원리를 끝없이 찾는 것이 아니라, 사욕을 걷어내어 양지를 밝히는 일이다.</p>
+          <div class="legend"><span><i class="swatch mind"></i>양지</span><span><i class="swatch"></i>사욕</span><span><i class="swatch li"></i>도덕 원리</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="지행합일">
+      <div class="paper-grain"></div><div class="slide-number">9</div><div class="topline"></div>
+      <div class="grid2 equal">
+        <div>
+          <div class="kicker">7. 앎과 실천</div>
+          <h2>지행합일:<br><span class="highlight">참된 앎은 곧 실천</span>이다</h2>
+          <p>왕수인은 도덕을 참으로 안다면, 그것은 단순한 지식으로 머물 수 없다고 본다. 참된 앎은 이미 실천하려는 마음과 함께 있다.</p>
+          <div class="card" style="margin-top:20px"><p>“옳음을 안다”는 것은 시험 답을 아는 것이 아니라, 눈앞의 상황에서 옳은 일을 하도록 마음이 움직이는 것이다.</p></div>
+        </div>
+        <svg class="viz" viewBox="0 0 760 520" role="img" aria-label="지행합일 SVG">
+          <defs><marker id="am9" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#151515"/></marker></defs>
+          <g transform="translate(80 106)">
+            <circle class="rough fill-blue" cx="110" cy="110" r="92"/><text x="110" y="116" text-anchor="middle" class="svg-label">知</text><text x="110" y="150" text-anchor="middle" class="svg-small">앎</text>
+          </g>
+          <g transform="translate(420 106)">
+            <circle class="rough fill-mind" cx="110" cy="110" r="92"/><text x="110" y="116" text-anchor="middle" class="svg-label">行</text><text x="110" y="150" text-anchor="middle" class="svg-small">실천</text>
+          </g>
+          <path class="rough thick" marker-end="url(#am9)" d="M282 214 C340 182 386 182 444 214"/>
+          <path class="rough thick" marker-end="url(#am9)" d="M444 250 C386 282 340 282 282 250"/>
+          <g transform="translate(256 342)">
+            <rect class="rough fill-green" x="0" y="0" width="250" height="94" rx="22"/><text x="125" y="38" text-anchor="middle" class="svg-label">하나의 과정</text><text x="125" y="68" text-anchor="middle" class="svg-small">앎과 행동은 분리되지 않는다</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="slide" data-title="비교표">
+      <div class="paper-grain"></div><div class="slide-number">10</div><div class="topline"></div>
+      <div style="position:relative;z-index:1">
+        <div class="kicker">8. 한눈에 비교</div>
+        <h2>성리학과 양명학</h2>
+        <table class="compare" aria-label="성리학과 양명학 비교표">
+          <thead><tr><th></th><th>성리학, 주희 중심</th><th>양명학, 왕수인 중심</th></tr></thead>
+          <tbody>
+            <tr><td>핵심 명제</td><td><b>성즉리</b> — 인간의 본성이 곧 이치</td><td><b>심즉리</b> — 마음이 곧 이치</td></tr>
+            <tr><td>천리의 위치</td><td>세계와 사물, 인간관계 속의 객관적 원리로 탐구됨</td><td>사욕에 가려지지 않은 마음의 도덕 자각 속에서 드러남</td></tr>
+            <tr><td>수양 방법</td><td><b>격물치지</b>: 사물과 일의 이치를 탐구하여 앎을 확충</td><td><b>치양지</b>: 마음속 양지를 밝히고 사욕을 제거</td></tr>
+            <tr><td>앎과 행동</td><td><b>선지후행</b>: 먼저 알고 그 앎에 따라 실천</td><td><b>지행합일</b>: 참된 앎과 실천은 분리되지 않음</td></tr>
+            <tr><td>왕수인의 비판</td><td>외부 천리를 먼저 확인하는 과정이 실천을 지연시킬 수 있음</td><td>내 마음이 이미 옳음을 안다면, 지금 여기에서 실천해야 함</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-title="도식 정리">
+      <div class="paper-grain"></div><div class="slide-number">11</div><div class="topline"></div>
+      <div class="grid2 equal">
+        <div class="card">
+          <h2 class="blue">성리학</h2>
+          <svg class="viz" viewBox="0 0 560 430" role="img" aria-label="성리학 구조 도식">
+            <g transform="translate(190 10)" class="cheolli"><circle class="sun" cx="80" cy="80" r="32"/><path class="geo" d="M80 14 L130 80 L80 146 L30 80 Z M36 52 H124 V108 H36 Z"/><path class="ray" d="M80 158 v34 M8 80 h-24 M152 80 h24"/><text x="80" y="88" text-anchor="middle" class="svg-small">天理</text></g>
+            <rect class="rough fill-blue" x="45" y="185" width="470" height="70" rx="20"/><text x="280" y="230" text-anchor="middle" class="svg-label">외부의 천리 탐구</text>
+            <rect class="rough fill-white" x="45" y="270" width="470" height="70" rx="20"/><text x="280" y="315" text-anchor="middle" class="svg-label">마음의 움직임을 합치</text>
+            <rect class="rough fill-green" x="45" y="355" width="470" height="60" rx="20"/><text x="280" y="395" text-anchor="middle" class="svg-label">실천</text>
+            <path class="rough arrow-li li-stroke" d="M270 160 v24"/><path class="rough arrow" d="M280 256 v16"/><path class="rough arrow" d="M280 342 v16"/>
+          </svg>
+        </div>
+        <div class="card">
+          <h2 class="orange">양명학</h2>
+          <svg class="viz" viewBox="0 0 560 430" role="img" aria-label="양명학 구조 도식">
+            <g transform="translate(178 12)">
+              <path class="rough" d="M102 20 c62 0 104 42 104 100c0 84-104 138-104 138S-2 204-2 120C-2 62 40 20 102 20z"/>
+              <path class="rough mind-stroke thick" d="M102 80 C54 32 10 98 40 148 C58 180 88 178 102 218 C116 178 146 180 164 148 C194 98 150 32 102 80z"/>
+              <text x="102" y="130" text-anchor="middle" class="svg-label">心=理</text>
+            </g>
+            <rect class="rough fill-mind" x="45" y="185" width="470" height="70" rx="20"/><text x="280" y="230" text-anchor="middle" class="svg-label">마음 안의 양지 자각</text>
+            <rect class="rough fill-white" x="45" y="270" width="470" height="70" rx="20"/><text x="280" y="315" text-anchor="middle" class="svg-label">사욕을 걷어내어 밝힘</text>
+            <rect class="rough fill-green" x="45" y="355" width="470" height="60" rx="20"/><text x="280" y="395" text-anchor="middle" class="svg-label">곧바로 실천</text>
+            <path class="rough arrow-mind mind-stroke" d="M280 160 v24"/><path class="rough arrow" d="M280 256 v16"/><path class="rough arrow" d="M280 342 v16"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="정리 질문">
+      <div class="paper-grain"></div><div class="slide-number">12</div><div class="topline"></div>
+      <div class="center">
+        <div style="max-width:1040px">
+          <div class="kicker">마무리 질문</div>
+          <p class="big-q">“옳다는 마음이 이미 일어났다면,<br>우리는 왜 아직 실천하지 않는가?”</p>
+          <div class="grid3" style="margin-top:34px;text-align:left">
+            <div class="card"><h3>성리학으로 답하기</h3><p class="small">먼저 이치를 정확히 알아 마음과 행동을 바로잡아야 한다.</p></div>
+            <div class="card"><h3>왕수인의 의문</h3><p class="small">그 과정에서 눈앞의 선한 실천이 늦어지는 것은 아닌가?</p></div>
+            <div class="card"><h3>양명학으로 넘어가기</h3><p class="small">도덕 원리는 마음 안에서 이미 드러나는 것은 아닌가?</p></div>
+          </div>
+          <p class="quote">다음 수업의 첫 개념: <b>심즉리</b> — 마음이 곧 이치이다.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="controls" aria-label="슬라이드 조작">
+    <button id="prev" type="button">← 이전</button>
+    <div class="counter" id="counter">1 / 12</div>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <button id="next" type="button">다음 →</button>
+    <button id="fs" type="button">전체화면</button>
+  </div>
+  <div class="bar" id="bar"></div>
+
+  <script>
+    const slides=[...document.querySelectorAll('.slide')];
+    const counter=document.getElementById('counter');
+    const bar=document.getElementById('bar');
+    const dots=document.getElementById('dots');
+    let idx=0;
+    slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot';d.addEventListener('click',()=>show(i));dots.appendChild(d);});
+    function show(n){
+      idx=(n+slides.length)%slides.length;
+      slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+      counter.textContent=`${idx+1} / ${slides.length}`;
+      bar.style.width=`${((idx+1)/slides.length)*100}%`;
+      [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===idx));
+      location.hash=`slide-${idx+1}`;
+    }
+    document.getElementById('prev').addEventListener('click',()=>show(idx-1));
+    document.getElementById('next').addEventListener('click',()=>show(idx+1));
+    document.getElementById('fs').addEventListener('click',()=>{
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    });
+    addEventListener('keydown',e=>{
+      if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(idx+1);}
+      if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(idx-1);}
+      if(e.key==='Home') show(0);
+      if(e.key==='End') show(slides.length-1);
+      if(e.key.toLowerCase()==='f') document.getElementById('fs').click();
+    });
+    const m=location.hash.match(/slide-(\d+)/); if(m) idx=Math.min(slides.length-1,Math.max(0,+m[1]-1));
+    show(idx);
+  </script>
+</body>
+</html>
